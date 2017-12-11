@@ -1,0 +1,29 @@
+
+button {
+    width: 50px;
+    height: 50px;
+    background-color: white;
+    font-size: 20px;
+}
+
+button.pressed {
+    background-color: green;
+}
+
+div.matrix {
+    display: grid;
+    justify-items: stretch;
+}
+
+
+.generate-grid(30);
+
+.generate-grid(@n, @i: 1) when (@i =< @n) {
+    .row-@{i} {
+        grid-row: @i;
+    }
+    .col-@{i} {
+        grid-column: @i;
+    }
+    .generate-grid(@n, (@i + 1));
+}
