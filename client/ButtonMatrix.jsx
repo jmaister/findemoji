@@ -2,14 +2,12 @@ import React from 'react';
 
 import EmojiButton from './EmojiButton.jsx';
 
-import style from './style/main.less';
+import './style/main.less';
 
 class ButtonMatrix extends React.Component {
 
     constructor(props) {
         super(props);
-
-        console.log(props);
 
         let buttons = [];
         for (let i = 0; i < props.side; i++) {
@@ -19,7 +17,6 @@ class ButtonMatrix extends React.Component {
             }
             buttons.push(row);
         }
-        console.log(buttons);
 
         this.state = { 
             side: props.side,

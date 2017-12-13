@@ -5,6 +5,7 @@ class EmojiButton extends React.Component {
     constructor(props) {
         super(props);
         this.state = { pressed: false, value: props.value, className: props.className };
+
         this.onClick = this.onClick.bind(this);
     }
 
@@ -14,7 +15,9 @@ class EmojiButton extends React.Component {
     }
 
     render() {
-        var className = this.state.className + (this.state.pressed ? ' pressed' : '');
+        var className = this.state.className 
+        + (this.state.pressed ? ' pressed' : '')
+        + ' emojibutton';
         return (
             <button className={className} onClick={this.onClick}>
                 {this.state.value}
