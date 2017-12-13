@@ -1,6 +1,10 @@
-# babel-express-webpack-starter
+# FindEmoji
 
-NodeJS, Express, Webpack, Babel (ES6) and ReactJS.
+Find emojis game.
+
+![Screenshot](./docs/screenshot.png)
+
+Note: this is a ReactJS test application.
 
 # Run
 
