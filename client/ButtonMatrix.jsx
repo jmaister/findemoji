@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import EmojiButton from './EmojiButton.jsx';
 
@@ -9,10 +10,19 @@ class ButtonMatrix extends React.Component {
     constructor(props) {
         super(props);
 
+        let side = props.side;
+        if (!side) {
+            side = props.match.params.level;
+        }
+        if (!side) {
+            side = 5;
+        }
+        console.log(side, props);
+            
         let buttons = [];
-        for (let i = 0; i < props.side; i++) {
+        for (let i = 0; i < side; i++) {
             let row = [];
-            for (let j = 0; j < props.side; j++) {
+            for (let j = 0; j < side; j++) {
                 row.push({
                     row: i,
                     col: j,
@@ -24,8 +34,13 @@ class ButtonMatrix extends React.Component {
             buttons.push(row);
         }
 
+        // Set the different emoji😄 😁 
+        var diff = buttons[this.getRandomInt(side)][this.getRandomInt(side)];
+        diff.emoji = '😁';
+        diff.diff = true;
+
         this.state = { 
-            side: props.side,
+            side: side,
             buttons
         };
 
@@ -37,11 +52,24 @@ class ButtonMatrix extends React.Component {
         console.log(this.state);
     }
 
+    getRandomInt(n) {
+        const min = 0;
+        const max = n - 1;
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
     onButtonChange(row, col) {
         let buttons = this.state.buttons.slice();
         buttons[row][col].pressed = !buttons[row][col].pressed;
-        const s = Object.assign({}, this.state, { buttons });
+
+        const win = buttons[row][col].diff;
+        if (win) {
+            alert('winner');
+        }
+
+        const s = Object.assign({}, this.state, { buttons, winner: win });
         this.setState(s);
+
     }
 
     render() {
@@ -55,6 +83,7 @@ class ButtonMatrix extends React.Component {
         });
 
         return [
+            <Link key="homeLink" to="/">Home</Link>,
             <button key="checkBtn" onClick={this.showState}>Check state</button>,
             <div key="matrix" className="matrix">
                 {items}
