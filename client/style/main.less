@@ -10,6 +10,11 @@ div.matrix {
     height: 5rem;
     background-color: white;
     font-size: 2.5rem;
+    cursor: pointer;
+
+    &:hover {
+        background-color: lightblue;
+    }
 
     &.pressed {
         background-color: green;
@@ -19,12 +24,12 @@ div.matrix {
 
 .generate-grid(30);
 
-.generate-grid(@n, @i: 1) when (@i =< @n) {
+.generate-grid(@n, @i: 0) when (@i =< @n) {
     .row-@{i} {
-        grid-row: @i;
+        grid-row: (@i+1);
     }
     .col-@{i} {
-        grid-column: @i;
+        grid-column: (@i+1);
     }
     .generate-grid(@n, (@i + 1));
 }
