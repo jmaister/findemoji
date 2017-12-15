@@ -13,7 +13,7 @@ class EmojiButton extends React.Component {
     }
 
     render() {
-        var className = this.props.className 
+        var className = this.props.buttonInfo.className 
             + (this.props.buttonInfo.pressed ? ' pressed' : '')
             + ' emojibutton';
 

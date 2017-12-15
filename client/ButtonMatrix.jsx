@@ -17,7 +17,8 @@ class ButtonMatrix extends React.Component {
                     row: i,
                     col: j,
                     pressed: false,
-                    emoji: '😄'
+                    emoji: '😄',
+                    className: "row-" + i + " col-" + j
                 });
             }
             buttons.push(row);
@@ -46,9 +47,7 @@ class ButtonMatrix extends React.Component {
     render() {
         const items = this.state.buttons.map((row) => {
             return row.map((item) => {
-                const className = "row-" + item.row + " col-" + item.col;
-                return <EmojiButton
-                    className={className} key={className}
+                return <EmojiButton key={item.className}
                     buttonInfo={item}
                     onButtonChange={this.onButtonChange}
                      />
