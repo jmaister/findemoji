@@ -13,7 +13,12 @@ class ButtonMatrix extends React.Component {
         for (let i = 0; i < props.side; i++) {
             let row = [];
             for (let j = 0; j < props.side; j++) {
-                row.push('a');
+                row.push({
+                    row: i,
+                    col: j,
+                    pressed: false,
+                    emoji: '😄'
+                });
             }
             buttons.push(row);
         }
@@ -22,21 +27,40 @@ class ButtonMatrix extends React.Component {
             side: props.side,
             buttons
         };
+
+        this.showState = this.showState.bind(this);
+        this.onButtonChange = this.onButtonChange.bind(this);
+    }
+
+    showState() {
+        console.log(this.state);
+    }
+
+    onButtonChange(row, col) {
+        let buttons = this.state.buttons.slice();
+        buttons[row][col].pressed = !buttons[row][col].pressed;
+        const s = Object.assign({}, this.state, { buttons });
+        this.setState(s);
     }
 
     render() {
-        const items = this.state.buttons.map((row, rowIndex) => {
-            return row.map((item, itemIndex) => {
-                const className = "row-" + (rowIndex+1) + " col-" + (itemIndex+1);
-                return <EmojiButton className={className} key={className} value="😄" />
+        const items = this.state.buttons.map((row) => {
+            return row.map((item) => {
+                const className = "row-" + item.row + " col-" + item.col;
+                return <EmojiButton
+                    className={className} key={className}
+                    buttonInfo={item}
+                    onButtonChange={this.onButtonChange}
+                     />
             });
         });
 
-        return (
-            <div className="matrix">
+        return [
+            <button key="checkBtn" onClick={this.showState}>Check state</button>,
+            <div key="matrix" className="matrix">
                 {items}
             </div>
-        );
+        ];
     }
 
 }
